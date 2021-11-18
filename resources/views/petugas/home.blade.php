@@ -1,0 +1,89 @@
+@extends('layouts.petugas')
+
+@section('title', 'Pengaduan Petugas')
+
+@section('content-header')
+<!-- Content Header (Page header) -->
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Laporan Pengaduan</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Laporan Pengaduan</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+@endsection
+
+@section('content')
+<div class="row">
+<div class="col-md-12">
+
+@if(session()->has('message'))
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-check"></i> {{ session('message') }}!</h5>
+                </div>
+                @endif
+
+          <div class="card card-danger card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Kotak Masuk</h3>
+
+              <div class="card-tools">
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" placeholder="Search Mail">
+                  <div class="input-group-append">
+                    <div class="btn btn-primary">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover">
+                <thead>
+                    <th>#</th>
+                    <th>Tanggal Pengaduan</th>
+                    <th>Nama Pelapor</th>
+                    <th>Isi Laporan</th>
+                    <th>Foto</th>
+                    <th>action</th>
+                </thead>
+                  <tbody>
+                  @foreach($pengaduan as $p)
+                  <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $p->tgl_pengaduan }}</td>
+                    <td class="mailbox-name"><a href="read-mail.html">{{ $p->nama }}</a></td>
+                    <td class="mailbox-subject">{{ $p->isi_laporan }} </td>
+                    <td class="mailbox-attachment"><img width="100px" src="img/{{ $p->foto }}" ></td>
+                    <td class="mailbox-date"><a href="{{ url('petugas/detail/'.$p->id) }}" class="btn btn-app"><i class="fas fa-eye"></i>Detail</a></td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer p-0">
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        </div>
+        <!-- /.row -->
+@endsection('content')
+
